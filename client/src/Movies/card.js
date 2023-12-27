@@ -1,14 +1,13 @@
-import React from 'react'
-import MovieImg from '../assets/movieImg.png'
+import React from "react";
 
-function Card() {
+function Card({ movie }) {
   return (
-    <div className="movie_card">
-       <img src={MovieImg} alt="" />
-       <p className='movie_name'>Movie 1</p>
-       <p className='movie_year'>2021</p>
+    <div className="movie_card" onClick={() => {}}>
+      <img src={movie.posterImage} alt={movie.title} />
+      <p className="movie_name">{movie.title}</p>
+      <p className="movie_year">{movie.publishingYear}</p>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;

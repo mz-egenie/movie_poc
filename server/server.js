@@ -14,6 +14,7 @@ const io = require("socket.io")(server, {
   },
 });
 const port = process.env.PORT || 8000;
+const cors = require("cors");
 
 server.listen(port, () => {
   console.log("Server listening at port %d", port);
@@ -30,6 +31,8 @@ mongoose
     console.error("MongoDB Connection Error:".red, err);
   });
 
+app.disable("etag");
+app.use(cors());
 // Routing
 app.use(express.json());
 app.use("/", router);

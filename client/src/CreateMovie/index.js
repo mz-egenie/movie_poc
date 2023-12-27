@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Upload } from "antd";
 import { showMessage } from "../utils/showMessage";
 import { UploadOutlined } from "@ant-design/icons";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 function CreateMovie() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [image, setImage] = useState("");
   const [imageUploadLoading, setImageUploadLoading] = useState(false);
-  const [editMovie, setEditMovie] = useState(false)
+  const [editMovie] = useState(false);
 
   const imageUploadProps = {
     name: "file",
@@ -18,7 +18,7 @@ function CreateMovie() {
     // },
     onChange(info) {
       setImageUploadLoading(true);
-      console.log(info,"info")
+      console.log(info, "info");
       if (info.file.status === "done") {
         showMessage(`${info.file.name} file uploaded successfully`, false);
         setImage(info.file.response.url);
@@ -39,14 +39,14 @@ function CreateMovie() {
           <Upload {...imageUploadProps}>
             <div className="imageWrapper">
               <div className="imageUpload">
-                {imageUploadLoading == true ? (
+                {imageUploadLoading === true ? (
                   <div className="loader"></div>
                 ) : image ? (
                   <img
                     src={image}
-                    alt="placeholder image"
                     width={image ? 250 : 80}
                     height={image ? 250 : 80}
+                    alt="poster"
                   />
                 ) : (
                   <div className="before_upload">
@@ -58,7 +58,7 @@ function CreateMovie() {
             </div>
           </Upload>
           <div>
-          <div className="create_movie_inputField">
+            <div className="create_movie_inputField">
               <input
                 className="title_inputField"
                 required
@@ -77,15 +77,18 @@ function CreateMovie() {
                 // value={""}
                 // onChange={(e) => {}}
               />
-          </div>
-          <div className="button_main">
-            <button className="cancel_btn" onClick={()=>{navigate('/my-movies')}}>
+            </div>
+            <div className="button_main">
+              <button
+                className="cancel_btn"
+                onClick={() => {
+                  navigate("/my-movies");
+                }}
+              >
                 Cancel
-            </button>
-            <button className="submit_btn">
-                Submit
-            </button>
-          </div>
+              </button>
+              <button className="submit_btn">Submit</button>
+            </div>
           </div>
         </div>
       </div>
