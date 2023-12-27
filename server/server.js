@@ -1,7 +1,11 @@
 // Setup basic express server
 const express = require("express");
 const app = express();
-const path = require("path");
+const colors = require("colors");
+const router = require("./controllers/router");
+const movieRouter = require("./controllers/movieRouter");
+const { databaseConnectionString } = require("./database/constants");
+const mongoose = require("mongoose");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -15,8 +19,21 @@ server.listen(port, () => {
   console.log("Server listening at port %d", port);
 });
 
+console.log(databaseConnectionString.green);
+
+mongoose
+  .connect(databaseConnectionString, {})
+  .then(() => {
+    console.log("MongoDB Connected".green.bold);
+  })
+  .catch((err) => {
+    console.error("MongoDB Connection Error:".red, err);
+  });
+
 // Routing
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use("/", router);
+app.use("/api/movies", movieRouter);
 
 io.on("connection", (socket) => {
   // when the client emits 'new message', this listens and executes
