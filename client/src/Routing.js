@@ -17,6 +17,7 @@ return(
     <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<SignIn/>}/>
+          <Route exact path="/movie" element={<SignIn/>}/>
           <Route path="/create-movie" element={<CreateMovie/>}/>
           <Route path="/my-movies" element={<MyMovies/>}/>
         </Routes>
